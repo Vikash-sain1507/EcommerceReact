@@ -1,24 +1,43 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Header from './Components';
+import Footer from './Components/Footer';
+import Home from './Modules';
+import { Routes, Route } from 'react-router-dom'
+import SinglProduct from './Modules/SinglProduct';
+import Products from './Modules/Products';
+import CategoryProducts from './Modules/CategoryProducts';
+import Cart from './Modules/Cart';
+import Login from './Components/Login';
+import AuthGuard from './Components/AuthGaurd';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+
+      <Header />
+      <Routes>
+        < Route path='/' element={<AuthGuard>
+          <Home />
+        </AuthGuard>} />   
+        < Route path='/products/:id' element={<AuthGuard>
+          <SinglProduct />
+        </AuthGuard>} />  
+         < Route path='/products' element={<AuthGuard>
+          <Products />
+        </AuthGuard>} />  
+         < Route path='/categories/:name' element={<AuthGuard>
+          <CategoryProducts />
+        </AuthGuard>} />  
+         < Route path='/cart' element={<AuthGuard>
+          <Cart />
+        </AuthGuard>} />
+        <Route path='/Login' element={<Login />} />
+      </Routes>
+
+      <Footer />
+    </>
+
   );
 }
 
